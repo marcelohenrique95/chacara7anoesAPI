@@ -21,10 +21,9 @@ public class ReservaController {
 	@Autowired
 	private ReservaService reservaServ;
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Reserva registerReserve(@RequestBody Reserva reserva) {
-		return reservaServ.reserveDate(reserva);
+	@GetMapping(path = "/getPrice")
+	public double getPrice(@RequestBody Reserva reserva) {
+		return reservaServ.eventQuote(reserva);
 	}
 
 	@GetMapping(path = "/listReserve")

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,16 +20,20 @@ import br.com.chacara.service.ReservaService;
 public class ReservaController {
 
 	@Autowired
-	private ReservaService reservaServ;
+	private ReservaService reservaService;
 
-	@GetMapping(path = "/getPrice")
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	@CrossOrigin
 	public double getPrice(@RequestBody Reserva reserva) {
-		return reservaServ.eventQuote(reserva);
+		return reservaService.eventQuote(reserva);
 	}
 
 	@GetMapping(path = "/listReserve")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
 	public List<Reserva> listAll() {
-		return reservaServ.listReserve();
+		return reservaService.listReserve();
 	}
 
 }

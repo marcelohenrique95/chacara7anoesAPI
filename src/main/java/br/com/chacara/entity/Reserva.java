@@ -1,31 +1,40 @@
 package br.com.chacara.entity;
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import br.com.chacara.enums.TypeEventEnum;
 
 @Entity
 public class Reserva {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String day;
-	
-	private double hour;
-	
-	private double value;
-	
+
 	private TypeEventEnum typeEvent;
-	
+
 	private Integer qtdPerson;
 	
+	private Date dateReserve;
+
 	private boolean tableGame;
+
+	private double valuePerPerson;
+
+	private double valuePerTypeEvent;
+
+	private double valuePerDay;
 	
+	private double valueWithTables;
+
+	private double valueFinal;
 
 	public Long getId() {
 		return id;
@@ -33,16 +42,6 @@ public class Reserva {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-
-
-	public double getValue() {
-		return value;
-	}
-
-	public void setValue(double value) {
-		this.value = value;
 	}
 
 	public Integer getQtdPerson() {
@@ -59,6 +58,70 @@ public class Reserva {
 
 	public void setTypeEvent(TypeEventEnum typeEvent) {
 		this.typeEvent = typeEvent;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public boolean isTableGame() {
+		return tableGame;
+	}
+
+	public void setTableGame(boolean tableGame) {
+		this.tableGame = tableGame;
+	}
+
+	public double getValuePerPerson() {
+		return valuePerPerson;
+	}
+
+	public void setValuePerPerson(double valuePerPerson) {
+		this.valuePerPerson = valuePerPerson;
+	}
+
+	public double getValuePerTypeEvent() {
+		return valuePerTypeEvent;
+	}
+
+	public void setValuePerTypeEvent(double valuePerTypeEvent) {
+		this.valuePerTypeEvent = valuePerTypeEvent;
+	}
+
+	public double getValueFinal() {
+		return valueFinal;
+	}
+
+	public void setValueFinal(double valueFinal) {
+		this.valueFinal = valueFinal;
+	}
+
+	public double getValuePerDay() {
+		return valuePerDay;
+	}
+
+	public void setValuePerDay(double valuePerDay) {
+		this.valuePerDay = valuePerDay;
+	}
+
+	public double getValueWithTables() {
+		return valueWithTables;
+	}
+
+	public void setValueWithTables(double valueWithTables) {
+		this.valueWithTables = valueWithTables;
+	}
+
+	public Date getDateReserve() {
+		return dateReserve;
+	}
+
+	public void setDateReserve(Date dateReserve) {
+		this.dateReserve = dateReserve;
 	}
 
 	@Override
@@ -91,30 +154,6 @@ public class Reserva {
 		} else if (!qtdPerson.equals(other.qtdPerson))
 			return false;
 		return true;
-	}
-
-	public String getDay() {
-		return day;
-	}
-
-	public void setDay(String day) {
-		this.day = day;
-	}
-
-	public double getHour() {
-		return hour;
-	}
-
-	public void setHour(double hour) {
-		this.hour = hour;
-	}
-
-	public boolean isTableGame() {
-		return tableGame;
-	}
-
-	public void setTableGame(boolean tableGame) {
-		this.tableGame = tableGame;
 	}
 
 }

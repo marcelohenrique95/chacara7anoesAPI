@@ -2,10 +2,22 @@ package br.com.chacara.enums;
 
 public enum TypeEventEnum {
 	
-	Aniversario("1"), Casamento("2"), Churrasco("1"), ChaDeBebe("1"), Resenha ("1"), Retiro("2"), Outro("0");
+	Aniversario(1), Casamento(2), Churrasco(3), ChaDeBebe(4), Resenha (5), Retiro(6), Outro(0);
 
-	TypeEventEnum(String string) {
-		// TODO Auto-generated constructor stub
+	private Integer eventId;
+
+	TypeEventEnum(int eventId) {
+		this.eventId = eventId;
 	}
+
+	public Integer getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(Integer eventId) {
+		this.eventId = eventId;
+	}
+
+
 
 }

@@ -2,37 +2,35 @@ package br.com.chacara.entity;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import br.com.chacara.enums.TypeEventEnum;
 
-@Entity
 public class Reserva {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	private String day;
-
-	private TypeEventEnum typeEvent;
-
-	private Integer qtdPerson;
 	
-	private Date dateReserve;
-
-	private boolean tableGame;
-
+	private String nameClient;
+	
+	private String cellphone;
+	
+	private String cpf;
+	
+	private TypeEventEnum typeEvent;
+	
+	private Integer convidados;
+	
+	private Date data;
+	
 	private double valuePerPerson;
 
 	private double valuePerTypeEvent;
 
 	private double valuePerDay;
-	
-	private double valueWithTables;
 
 	private double valueFinal;
 
@@ -44,12 +42,28 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public Integer getQtdPerson() {
-		return qtdPerson;
+	public String getNameClient() {
+		return nameClient;
 	}
 
-	public void setQtdPerson(Integer qtdPerson) {
-		this.qtdPerson = qtdPerson;
+	public void setNameClient(String nameClient) {
+		this.nameClient = nameClient;
+	}
+
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public TypeEventEnum getTypeEvent() {
@@ -60,20 +74,20 @@ public class Reserva {
 		this.typeEvent = typeEvent;
 	}
 
-	public String getDay() {
-		return day;
+	public Integer getConvidados() {
+		return convidados;
 	}
 
-	public void setDay(String day) {
-		this.day = day;
+	public void setConvidados(Integer convidados) {
+		this.convidados = convidados;
 	}
 
-	public boolean isTableGame() {
-		return tableGame;
+	public Date getData() {
+		return data;
 	}
 
-	public void setTableGame(boolean tableGame) {
-		this.tableGame = tableGame;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public double getValuePerPerson() {
@@ -92,14 +106,6 @@ public class Reserva {
 		this.valuePerTypeEvent = valuePerTypeEvent;
 	}
 
-	public double getValueFinal() {
-		return valueFinal;
-	}
-
-	public void setValueFinal(double valueFinal) {
-		this.valueFinal = valueFinal;
-	}
-
 	public double getValuePerDay() {
 		return valuePerDay;
 	}
@@ -108,52 +114,14 @@ public class Reserva {
 		this.valuePerDay = valuePerDay;
 	}
 
-	public double getValueWithTables() {
-		return valueWithTables;
+	public double getValueFinal() {
+		return valueFinal;
 	}
 
-	public void setValueWithTables(double valueWithTables) {
-		this.valueWithTables = valueWithTables;
+	public void setValueFinal(double valueFinal) {
+		this.valueFinal = valueFinal;
 	}
-
-	public Date getDateReserve() {
-		return dateReserve;
-	}
-
-	public void setDateReserve(Date dateReserve) {
-		this.dateReserve = dateReserve;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((qtdPerson == null) ? 0 : qtdPerson.hashCode());
-		result = prime * result + ((typeEvent == null) ? 0 : typeEvent.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Reserva other = (Reserva) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (qtdPerson == null) {
-			if (other.qtdPerson != null)
-				return false;
-		} else if (!qtdPerson.equals(other.qtdPerson))
-			return false;
-		return true;
-	}
+	
+	
 
 }

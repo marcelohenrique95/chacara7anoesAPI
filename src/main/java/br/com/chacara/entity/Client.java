@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-public class Cliente {
+public class Client {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +18,8 @@ public class Cliente {
 	private String name;
 	
 	private String cellphone;
+	
+	private String email;
 
 	public Long getId() {
 		return id;
@@ -43,6 +45,14 @@ public class Cliente {
 		this.cellphone = cellphone;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,7 +71,7 @@ public class Cliente {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Client other = (Client) obj;
 		if (cellphone == null) {
 			if (other.cellphone != null)
 				return false;

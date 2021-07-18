@@ -1,83 +1,71 @@
 package br.com.chacara.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.chacara.entity.Orcamento;
 import br.com.chacara.entity.Reserva;
 import br.com.chacara.exception.NegocioException;
 import br.com.chacara.repository.ReservaRepository;
 
 @Service
 public class ReservaService {
-
+	
 	@Autowired
 	private ReservaRepository reservaRepository;
-
-	public double eventQuote(Reserva reserva) {
-		Optional<Reserva> reserveExist = reservaRepository.findById(reserva.getId());
-
-		if (reserveExist != null && reserveExist.equals(reserva.getId())) {
-			throw new NegocioException("Já existe uma reserva.");
+	
+	public void reservar(Reserva reserva) {
+		
+		if(reserva == null) {
+			throw new NegocioException("ERRO");
 		}
-
-		if (reserva.getTypeEvent() == null) {
-			throw new NegocioException("Selecione o tipo de evento.");
+		Optional<Reserva> reservaExist = reservaRepository.findById(reserva.getId());
+		
+		if(reservaExist != null) {
+			throw new NegocioException("Você já reservou.");
+		}
+		
+		if(reserva.getNameClient() == null || reserva.getNameClient().isEmpty()) {
+			throw new NegocioException("Digite um nome.");
+		}
+		
+		if(reserva.getConvidados() == null || reserva.getConvidados() == 0) {
+			throw new NegocioException("Informe o número de convidados.");
+		}
+		
+		if(reserva.getCellphone() == null || reserva.getCellphone().isEmpty()) {
+			throw new NegocioException("Informe um telefone para contato.");
+		}
+		if(reserva.getTypeEvent() == null) {
+			throw new NegocioException("Informe o tipo de evento.");
 		} else {
-			verifyTypeEvent(reserva);
+			
 		}
-
-		if (reserva.getQtdPerson() == null || reserva.getQtdPerson() == 0) {
-			throw new NegocioException("Diga a quantidade de pessoas !");
-		} else if (reserva.getQtdPerson() > 95) {
-			throw new NegocioException("Espaço não suporta essa quantidade !");
-		} else {
-			verifyQtdPerson(reserva);
-		}
-
-		if (reserva.getDay() == null) {
-			throw new NegocioException("Selecione o dia do evento !");
-		} else {
-			verifyDay(reserva);
-		}
-
-		if (reserva.isTableGame()) {
-			reserva.setValueWithTables(50.0);
-		}
-
-		System.out.println("Valor total do evento: " + reserva.getValueFinal());
-		System.out.println("Seu evento será um " + reserva.getTypeEvent() + ", no dia " 
-		+ reserva.getDay() + "para" + reserva.getQtdPerson() + " pessoas.");
-		return reserva.getValueFinal();
 	}
-
-	public List<Reserva> listReserve() {
-		return (List<Reserva>) reservaRepository.findAll();
-	}
-
+	
 	public void verifyTypeEvent(Reserva reserva) {
 
 		if (reserva.getTypeEvent().getEventId() == 1 || reserva.getTypeEvent().getEventId() == 4
 				|| reserva.getTypeEvent().getEventId() == 0) {
-			reserva.setValuePerTypeEvent(600.0);
+			reserva.setValuePerTypeEvent(200.0);
 		}
 
 		if (reserva.getTypeEvent().getEventId() == 2 || reserva.getTypeEvent().getEventId() == 6) {
-			reserva.setValuePerTypeEvent(700.0);
+			reserva.setValuePerTypeEvent(300.0);
 		}
 
 		if (reserva.getTypeEvent().getEventId() == 3 || reserva.getTypeEvent().getEventId() == 5) {
-			reserva.setValuePerTypeEvent(500.0);
+			reserva.setValuePerTypeEvent(100.0);
 		}
 
 		reserva.setValueFinal(reserva.getValuePerTypeEvent());
 
 	}
-
-	public void verifyQtdPerson(Reserva reserva) {
-		if (reserva.getQtdPerson() > 50) {
+	
+	public void verifyInvited(Reserva reserva) {
+		if (reserva.getConvidados() > 50) {
 			reserva.setValuePerPerson(150.0);
 		} else {
 			reserva.setValuePerPerson(100.0);
@@ -87,24 +75,29 @@ public class ReservaService {
 
 	}
 
-	public void verifyDay(Reserva reserva) {
+	public void verifyDay(Orcamento orcamento) {
 
-		if (reserva.getDay() == "sex") {
-			reserva.setValuePerDay(50.0);
-		}
-
-		if (reserva.getDay() == "sab") {
-			reserva.setValuePerDay(150.0);
+		if (orcamento.getDayEnum().getDayId() == 1 || orcamento.getDayEnum().getDayId() == 3) {
+			orcamento.setValuePerDay(300.0);
 		}
 
-		if (reserva.getDay() == "dom" || reserva.getDay() == "fer") {
-			reserva.setValuePerDay(100.0);
+		if (orcamento.getDayEnum().getDayId() == 2 || orcamento.getDayEnum().getDayId() == 4) {
+			orcamento.setValuePerDay(450.0);
 		}
-		
-		if (reserva.getDay() == "sabdom") {
-			reserva.setValuePerDay(230.0);
+
+		if (orcamento.getDayEnum().getDayId() == 5 || orcamento.getDayEnum().getDayId() == 6) {
+			orcamento.setValuePerDay(700.0);
 		}
-		reserva.setValueFinal(reserva.getValuePerDay());
+
+		if (orcamento.getDayEnum().getDayId() == 7) {
+			orcamento.setValuePerDay(900.0);
+		}
+
+		if (orcamento.getDayEnum().getDayId() == 8 || orcamento.getDayEnum().getDayId() == 9
+				|| orcamento.getDayEnum().getDayId() == 10) {
+			orcamento.setValuePerDay(2500.0);
+		}
+		orcamento.setValueFinal(orcamento.getValuePerDay());
 
 	}
 

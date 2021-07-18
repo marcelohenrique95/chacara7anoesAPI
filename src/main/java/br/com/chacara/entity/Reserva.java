@@ -2,19 +2,21 @@ package br.com.chacara.entity;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import br.com.chacara.enums.TypeEventEnum;
 
+@Entity
 public class Reserva {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String nameClient;
+	private String name;
 	
 	private String cellphone;
 	
@@ -42,12 +44,12 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public String getNameClient() {
-		return nameClient;
+	public String getName() {
+		return name;
 	}
 
-	public void setNameClient(String nameClient) {
-		this.nameClient = nameClient;
+	public void setNameClient(String name) {
+		this.name = name;
 	}
 
 	public String getCellphone() {

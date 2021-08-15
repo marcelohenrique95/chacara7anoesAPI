@@ -12,22 +12,29 @@ public class OrcamentoService {
 
 	String resposta;
 	Double total;
+	Double totalWithCoupon;
 
-	public String getOrcamento(Integer diaId, Integer eventId, Integer conv) {
+	public String getOrcamento(Integer diaId, Integer eventId, Integer conv, boolean coupon) {
 		Orcamento orcamento = new Orcamento();
-				
-		if(diaId == null || eventId == null || conv == null) {
+
+		if (diaId == null || eventId == null || conv == null) {
 			throw new NegocioException("Preencha todos os campos.");
-		}		
+		}
 		verifyDay(orcamento, diaId);
-        verifyTypeEvent(orcamento, eventId);      
-        verifyQtdPerson(orcamento, conv);
-        
-        total = orcamento.getValuePerDay() + orcamento.getValuePerPerson() + orcamento.getValuePerTypeEvent();
-        orcamento.setValueFinal(total);
+		verifyTypeEvent(orcamento, eventId);
+		verifyQtdPerson(orcamento, conv);
+		existsCoupon(orcamento, coupon);
+
+		total = orcamento.getValuePerDay() + orcamento.getValuePerPerson() + orcamento.getValuePerTypeEvent();
+		orcamento.setValueFinal(total);
 		
-		resposta = "O valor do seu evento será R$" + orcamento.getValueFinal();
-		
+		if(coupon == true) {
+		totalWithCoupon = orcamento.getValueFinal() - orcamento.getValueWithCoupon();
+			resposta = totalWithCoupon.toString();
+		} else {
+			resposta = String.valueOf(orcamento.getValueFinal()) ;	
+		}
+
 		System.out.println(resposta);
 		return resposta;
 	}
@@ -49,7 +56,7 @@ public class OrcamentoService {
 	}
 
 	public void verifyQtdPerson(Orcamento orcamento, Integer conv) {
-		if(conv <= 20) {
+		if (conv <= 20) {
 			orcamento.setValuePerPerson(50.0);
 		} else if (conv <= 50) {
 			orcamento.setValuePerPerson(70.0);
@@ -77,15 +84,21 @@ public class OrcamentoService {
 			orcamento.setValuePerDay(900.0);
 		}
 
-		if (diaId == DayEnum.CARNAVAL.getDayId() || diaId == DayEnum.NATAL.getDayId() || diaId == DayEnum.REVEILLON.getDayId()) {
+		if (diaId == DayEnum.CARNAVAL.getDayId() || diaId == DayEnum.NATAL.getDayId()
+				|| diaId == DayEnum.REVEILLON.getDayId()) {
 			orcamento.setValuePerDay(2500.0);
 		}
-		
+
 		if (diaId == DayEnum.OUTRO.getDayId()) {
 			orcamento.setValuePerDay(200.0);
 		}
-		
 
+	}
+
+	public void existsCoupon(Orcamento orcamento, boolean coupon) {
+		if (coupon == true) {
+			orcamento.setValueWithCoupon(90.0);
+		}
 	}
 
 }

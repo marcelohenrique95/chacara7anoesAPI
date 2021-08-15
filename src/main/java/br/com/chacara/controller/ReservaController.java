@@ -15,7 +15,7 @@ import br.com.chacara.entity.Reserva;
 import br.com.chacara.service.ReservaService;
 
 @RestController
-@RequestMapping("/reserva")
+@RequestMapping("/v1/reserva")
 public class ReservaController {
 	
 	@Autowired

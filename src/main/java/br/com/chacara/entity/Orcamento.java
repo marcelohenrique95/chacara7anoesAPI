@@ -21,11 +21,15 @@ public class Orcamento {
 
 	private Integer qtdPerson;
 
+	private boolean coupon;
+
 	private double valuePerPerson;
 
 	private double valuePerTypeEvent;
 
 	private double valuePerDay;
+
+	private double valueWithCoupon;
 
 	private double valueFinal;
 
@@ -43,6 +47,14 @@ public class Orcamento {
 
 	public void setQtdPerson(Integer qtdPerson) {
 		this.qtdPerson = qtdPerson;
+	}
+
+	public boolean isCoupon() {
+		return coupon;
+	}
+
+	public void setCoupon(boolean coupon) {
+		this.coupon = coupon;
 	}
 
 	public TypeEventEnum getTypeEvent() {
@@ -93,6 +105,13 @@ public class Orcamento {
 		this.valuePerDay = valuePerDay;
 	}
 
+	public double getValueWithCoupon() {
+		return valueWithCoupon;
+	}
+
+	public void setValueWithCoupon(double valueWithCoupon) {
+		this.valueWithCoupon = valueWithCoupon;
+	}
 
 	@Override
 	public int hashCode() {

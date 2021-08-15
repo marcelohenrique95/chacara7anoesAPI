@@ -16,7 +16,7 @@ import br.com.chacara.entity.Client;
 import br.com.chacara.service.ClientService;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/v1/client")
 public class ClientController {
 
 	@Autowired

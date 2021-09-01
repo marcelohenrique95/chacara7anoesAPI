@@ -27,12 +27,12 @@ public class OrcamentoService {
 
 		total = orcamento.getValuePerDay() + orcamento.getValuePerPerson() + orcamento.getValuePerTypeEvent();
 		orcamento.setValueFinal(total);
-		
-		if(coupon == true) {
-		totalWithCoupon = orcamento.getValueFinal() - orcamento.getValueWithCoupon();
+
+		if (coupon == true) {
+			totalWithCoupon = orcamento.getValueFinal() - orcamento.getValueWithCoupon();
 			resposta = totalWithCoupon.toString();
 		} else {
-			resposta = String.valueOf(orcamento.getValueFinal()) ;	
+			resposta = String.valueOf(orcamento.getValueFinal());
 		}
 
 		System.out.println(resposta);

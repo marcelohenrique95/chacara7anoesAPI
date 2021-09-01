@@ -29,13 +29,13 @@ public class ClientController {
 	public void regClient(@RequestBody Client client) {
 		clientService.registerClient(client);
 	}
-	
+
 	@GetMapping(path = "/client/listar")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Client> listClient() {
 		return clientService.listAll();
 	}
-	
+
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.OK)
 	public void removeClient(@RequestBody Client client) {

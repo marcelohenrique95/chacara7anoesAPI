@@ -1,6 +1,7 @@
 package br.com.chacara.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,13 @@ public class ClientService {
 	
 	public List<Client> listAll(){
 		return (List<Client>) clientRepository.findAll();
+	}
+	
+	public void removeClient(Client client) {
+		Optional<Client> clientExist = clientRepository.findById(client.getId());
+		if(clientExist != null) {
+			clientRepository.deleteById(client.getId());
+		}
 	}
 
 }

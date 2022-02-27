@@ -11,6 +11,5 @@ public class ChacaraAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ChacaraAppApplication.class, args);
 	}
-
 	
 }

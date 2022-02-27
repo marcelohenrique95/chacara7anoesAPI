@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.chacara.controller.SendEmailController;
 import br.com.chacara.entity.Client;
 import br.com.chacara.exception.NegocioException;
 import br.com.chacara.repository.ClientRepository;
@@ -15,6 +16,9 @@ public class ClientService {
 
 	@Autowired
 	private ClientRepository clientRepository;
+	
+	@Autowired
+	private SendEmailController sendEmail;
 
 	public void registerClient(Client client) {
 
@@ -35,7 +39,8 @@ public class ClientService {
 		if (client.getName() == null || client.getName().isEmpty()) {
 			throw new NegocioException("O campo nome não pode ser vazio, digite seu nome.");
 		}
-
+		
+		sendEmail.sendMailWelcome(client);
 		clientRepository.save(client);
 
 	}

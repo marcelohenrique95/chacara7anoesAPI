@@ -10,17 +10,11 @@ import javax.persistence.Id;
 import br.com.chacara.enums.TypeEventEnum;
 
 @Entity
-public class Reserva {
+public class Reserva extends Client {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private String name;
-	
-	private String cellphone;
-	
-	private String cpf;
 	
 	private TypeEventEnum typeEvent;
 	
@@ -42,30 +36,6 @@ public class Reserva {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setNameClient(String name) {
-		this.name = name;
-	}
-
-	public String getCellphone() {
-		return cellphone;
-	}
-
-	public void setCellphone(String cellphone) {
-		this.cellphone = cellphone;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	public TypeEventEnum getTypeEvent() {

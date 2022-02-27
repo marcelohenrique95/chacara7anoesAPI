@@ -1,6 +1,5 @@
 package br.com.chacara.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,14 +22,14 @@ public class ClientService {
 			throw new NegocioException("Por favor, digite um email.");
 		}
 
-		Client clientExist = (Client) clientRepository.findByEmail(client.getEmail());
+		Client clientExist = clientRepository.findByEmail(client.getEmail());
 
 		if (clientExist != null) {
 			throw new NegocioException("Já existe um cliente cadastrado com esse email.");
 		}
 
 		if (client.getCellphone() == null || client.getCellphone().isEmpty()) {
-			throw new NegocioException("O campo celular não pode ser vázio, digite o numero para contato.");
+			throw new NegocioException("O campo celular não pode ser vázio, digite um número para contato.");
 		}
 
 		if (client.getName() == null || client.getName().isEmpty()) {
@@ -42,16 +41,7 @@ public class ClientService {
 	}
 
 	public List<Client> listAll() {
-		Client clientOne = new Client();
-		clientOne.setName("marcelo");
-		clientOne.setEmail("marcelohenrique8061@gmail.com");
-		Client clientTwo = new Client();
-		clientTwo.setName("val");
-		clientTwo.setEmail("lorenzetti056@gmail.com");
-		List<Client> clientList = new ArrayList<>();
-		clientList.add(clientOne);
-		clientList.add(clientTwo);
-		return clientList;
+		return clientRepository.findAll();
 	}
 
 	public void removeClient(Client client) {

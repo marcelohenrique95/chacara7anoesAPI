@@ -16,6 +16,16 @@ public class ReservaService {
 	@Autowired
 	private ReservaRepository reservaRepository;
 
+	private static Double VALOR_SEXTA_DOMINGO = 300.0;
+
+	private static Double VALOR_SABADO_FERIADO = 450.0;
+
+	private static Double VALOR_DOIS_DIAS = 700.0;
+
+	private static Double VALOR_TRES_DIAS = 900.0;
+
+	private static Double VALOR_BIG_FERIADOS = 2500.0;
+
 	public void reservar(Reserva reserva) {
 
 		if (reserva == null) {
@@ -68,33 +78,30 @@ public class ReservaService {
 		}
 
 		reserva.setValueFinal(reserva.getValuePerPerson());
-
 	}
 
 	public void verifyDay(Orcamento orcamento) {
 
 		if (orcamento.getDayEnum().getDayId() == 1 || orcamento.getDayEnum().getDayId() == 3) {
-			orcamento.setValuePerDay(300.0);
+			orcamento.setValuePerDay(VALOR_SEXTA_DOMINGO);
 		}
 
 		if (orcamento.getDayEnum().getDayId() == 2 || orcamento.getDayEnum().getDayId() == 4) {
-			orcamento.setValuePerDay(450.0);
+			orcamento.setValuePerDay(VALOR_SABADO_FERIADO);
 		}
 
 		if (orcamento.getDayEnum().getDayId() == 5 || orcamento.getDayEnum().getDayId() == 6) {
-			orcamento.setValuePerDay(700.0);
+			orcamento.setValuePerDay(VALOR_DOIS_DIAS);
 		}
 
 		if (orcamento.getDayEnum().getDayId() == 7) {
-			orcamento.setValuePerDay(900.0);
+			orcamento.setValuePerDay(VALOR_TRES_DIAS);
 		}
 
 		if (orcamento.getDayEnum().getDayId() == 8 || orcamento.getDayEnum().getDayId() == 9
 				|| orcamento.getDayEnum().getDayId() == 10) {
-			orcamento.setValuePerDay(2500.0);
+			orcamento.setValuePerDay(VALOR_BIG_FERIADOS);
 		}
-		orcamento.setValueFinal(orcamento.getValuePerDay());
-
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.com.chacara.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,16 @@ public class ClientService {
 	}
 
 	public List<Client> listAll() {
-		return (List<Client>) clientRepository.findAll();
+		Client clientOne = new Client();
+		clientOne.setName("marcelo");
+		clientOne.setEmail("marcelohenrique8061@gmail.com");
+		Client clientTwo = new Client();
+		clientTwo.setName("val");
+		clientTwo.setEmail("lorenzetti056@gmail.com");
+		List<Client> clientList = new ArrayList<>();
+		clientList.add(clientOne);
+		clientList.add(clientTwo);
+		return clientList;
 	}
 
 	public void removeClient(Client client) {

@@ -10,9 +10,19 @@ import br.com.chacara.exception.NegocioException;
 @Service
 public class OrcamentoService {
 
-	String resposta;
-	Double total;
-	Double totalWithCoupon;
+	Double totalValueEvent;
+
+	private static Double VALOR_CUPOM = 90.0;
+
+	private static Double VALOR_SEXTA_DOMINGO = 300.0;
+
+	private static Double VALOR_SABADO_FERIADO = 450.0;
+
+	private static Double VALOR_DOIS_DIAS = 700.0;
+
+	private static Double VALOR_TRES_DIAS = 900.0;
+
+	private static Double VALOR_BIG_FERIADOS = 2500.0;
 
 	public String getOrcamento(Integer diaId, Integer eventId, Integer conv, boolean coupon) {
 		Orcamento orcamento = new Orcamento();
@@ -20,85 +30,79 @@ public class OrcamentoService {
 		if (diaId == null || eventId == null || conv == null) {
 			throw new NegocioException("Preencha todos os campos.");
 		}
-		verifyDay(orcamento, diaId);
-		verifyTypeEvent(orcamento, eventId);
-		verifyQtdPerson(orcamento, conv);
-		existsCoupon(orcamento, coupon);
 
-		total = orcamento.getValuePerDay() + orcamento.getValuePerPerson() + orcamento.getValuePerTypeEvent();
-		orcamento.setValueFinal(total);
+		orcamento.setValuePerDay(verifyDay(diaId));
+		orcamento.setValuePerTypeEvent(verifyTypeEvent(eventId));
+		orcamento.setValuePerPerson(verifyQtdPerson(conv));
 
-		if (coupon == true) {
-			totalWithCoupon = orcamento.getValueFinal() - orcamento.getValueWithCoupon();
-			resposta = totalWithCoupon.toString();
-		} else {
-			resposta = String.valueOf(orcamento.getValueFinal());
+		totalValueEvent = calculateTotalValue(orcamento);
+
+		if (coupon) {
+			return totalWithCoupon(totalValueEvent);
 		}
-
-		System.out.println(resposta);
-		return resposta;
+		System.out.println(totalValueEvent.toString());
+		return totalValueEvent.toString();
 	}
 
-	public void verifyTypeEvent(Orcamento orcamento, Integer eventId) {
+	public Double verifyTypeEvent(Integer eventId) {
 
 		if (eventId == TypeEventEnum.Aniversario.getEventId() || eventId == TypeEventEnum.ChaDeBebe.getEventId()) {
-			orcamento.setValuePerTypeEvent(200.0);
+			return 200.0;
 		}
 
 		if (eventId == TypeEventEnum.Casamento.getEventId() || eventId == TypeEventEnum.Retiro.getEventId()) {
-			orcamento.setValuePerTypeEvent(300.0);
+			return 300.0;
 		}
-
-		if (eventId == TypeEventEnum.Churrasco.getEventId() || eventId == TypeEventEnum.Familiar.getEventId()) {
-			orcamento.setValuePerTypeEvent(100.0);
-		}
-
+		return 100.0;
 	}
 
-	public void verifyQtdPerson(Orcamento orcamento, Integer conv) {
-		if (conv <= 20) {
-			orcamento.setValuePerPerson(50.0);
-		} else if (conv <= 50) {
-			orcamento.setValuePerPerson(70.0);
-		} else {
-			orcamento.setValuePerPerson(120.0);
+	public Double verifyQtdPerson(Integer qtdConv) {
+		Double taxaConvidado = 120.0;
+		if (qtdConv <= 20) {
+			taxaConvidado = 50.0;
+		} else if (qtdConv <= 50) {
+			taxaConvidado = 70.0;
 		}
 
+		return taxaConvidado;
 	}
 
-	public void verifyDay(Orcamento orcamento, Integer diaId) {
+	public Double verifyDay(Integer diaId) {
 
 		if (diaId == DayEnum.SEXTA.getDayId() || diaId == DayEnum.DOMINGO.getDayId()) {
-			orcamento.setValuePerDay(300.0);
+			return VALOR_SEXTA_DOMINGO;
 		}
 
 		if (diaId == DayEnum.SABADO.getDayId() || diaId == DayEnum.FERIADO.getDayId()) {
-			orcamento.setValuePerDay(450.0);
+			return VALOR_SABADO_FERIADO;
 		}
 
 		if (diaId == DayEnum.SEXSAB.getDayId() || diaId == DayEnum.SABDOM.getDayId()) {
-			orcamento.setValuePerDay(700.0);
+			return VALOR_DOIS_DIAS;
 		}
 
 		if (diaId == DayEnum.SEXSABDOM.getDayId()) {
-			orcamento.setValuePerDay(900.0);
+			return VALOR_TRES_DIAS;
 		}
 
 		if (diaId == DayEnum.CARNAVAL.getDayId() || diaId == DayEnum.NATAL.getDayId()
 				|| diaId == DayEnum.REVEILLON.getDayId()) {
-			orcamento.setValuePerDay(2500.0);
+			return VALOR_BIG_FERIADOS;
 		}
 
-		if (diaId == DayEnum.OUTRO.getDayId()) {
-			orcamento.setValuePerDay(200.0);
-		}
+		return 200.0;
 
 	}
 
-	public void existsCoupon(Orcamento orcamento, boolean coupon) {
-		if (coupon == true) {
-			orcamento.setValueWithCoupon(90.0);
-		}
+	public Double calculateTotalValue(Orcamento orcamento) {
+		Double totalValue = orcamento.getValuePerDay() + orcamento.getValuePerPerson()
+				+ orcamento.getValuePerTypeEvent();
+		return totalValue;
+	}
+
+	public String totalWithCoupon(Double value) {
+		value = value - VALOR_CUPOM;
+		return value.toString();
 	}
 
 }

@@ -13,9 +13,8 @@
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>chacaraApp</name>
-	<description>Chacara project for Spring Boot</description>
+	<description>API Chacara com Spring</description>
 	<properties>
-		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -61,6 +60,7 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		
 
 	</dependencies>
 
@@ -70,6 +70,19 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-surefire-plugin</artifactId>
+	          <version>2.19.1</version>
+	        </plugin>
+	         <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <configuration>
+	                <source>1.8</source>
+	                <target>1.8</target>
+	            </configuration>
+        	</plugin>
 		</plugins>
 	</build>
 

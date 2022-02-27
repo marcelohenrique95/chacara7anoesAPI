@@ -29,10 +29,6 @@ public class Orcamento {
 
 	private double valuePerDay;
 
-	private double valueWithCoupon;
-
-	private double valueFinal;
-
 	public Long getId() {
 		return id;
 	}
@@ -89,14 +85,6 @@ public class Orcamento {
 		this.valuePerTypeEvent = valuePerTypeEvent;
 	}
 
-	public double getValueFinal() {
-		return valueFinal;
-	}
-
-	public void setValueFinal(double valueFinal) {
-		this.valueFinal = valueFinal;
-	}
-
 	public double getValuePerDay() {
 		return valuePerDay;
 	}
@@ -105,13 +93,6 @@ public class Orcamento {
 		this.valuePerDay = valuePerDay;
 	}
 
-	public double getValueWithCoupon() {
-		return valueWithCoupon;
-	}
-
-	public void setValueWithCoupon(double valueWithCoupon) {
-		this.valueWithCoupon = valueWithCoupon;
-	}
 
 	@Override
 	public int hashCode() {

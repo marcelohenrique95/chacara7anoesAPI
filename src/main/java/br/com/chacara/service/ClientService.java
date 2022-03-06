@@ -37,7 +37,7 @@ public class ClientService {
 		}
 
 		if (client.getName() == null || client.getName().isEmpty()) {
-			throw new NegocioException("O campo nome não pode ser vazio, di   vhjkhghfazcvhdfhudsgfhggite seu nome.");
+			throw new NegocioException("O campo nome não pode ser vazio, digite seu nome.");
 		}
 		
 		sendEmail.sendMailWelcome(client);

@@ -27,7 +27,7 @@ public class ReservaService {
 			throw new NegocioException("Você já reservou.");
 		}
 
-		if (reserva.getName() == null || reserva.getName().isEmpty()) {
+		if (reserva.getClient().getName() == null || reserva.getClient().getName().isEmpty()) {
 			throw new NegocioException("Digite um nome.");
 		}
 
@@ -35,7 +35,7 @@ public class ReservaService {
 			throw new NegocioException("Informe o número de convidados.");
 		}
 
-		if (reserva.getCellphone() == null || reserva.getCellphone().isEmpty()) {
+		if (reserva.getClient().getCellphone() == null || reserva.getClient().getCellphone().isEmpty()) {
 			throw new NegocioException("Informe um telefone para contato.");
 		}
 		if (reserva.getTypeEvent() == null) {

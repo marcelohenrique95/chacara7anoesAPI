@@ -1,5 +1,7 @@
 package br.com.chacara.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "clientes")
+@Table(name = "cliente")
 public class Client {
 
 	@Id
@@ -69,10 +71,7 @@ public class Client {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+		return Objects.hash(cellphone, cpf, email, id, name);
 	}
 
 	@Override
@@ -84,22 +83,9 @@ public class Client {
 		if (getClass() != obj.getClass())
 			return false;
 		Client other = (Client) obj;
-		if (cellphone == null) {
-			if (other.cellphone != null)
-				return false;
-		} else if (!cellphone.equals(other.cellphone))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+		return Objects.equals(cellphone, other.cellphone) && Objects.equals(cpf, other.cpf)
+				&& Objects.equals(email, other.email) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name);
 	}
 
 }

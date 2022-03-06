@@ -51,8 +51,8 @@ public class SendEmailController {
 
 			System.out.println("entrou no metodo send");
 			MimeMessageHelper helper = new MimeMessageHelper(mail);
-			helper.setTo(reserva.getEmail());
-			helper.setSubject("Olá " + reserva.getName().substring(0, reserva.getName().indexOf(" ")).concat(" !"));
+			helper.setTo(reserva.getClient().getEmail());
+			helper.setSubject("Olá " + reserva.getClient().getName().substring(0, reserva.getClient().getName().indexOf(" ")).concat(" !"));
 			helper.setText("<h1 style='color: #74d455'>Chacára 7 Anões - Espaço de Eventos</h1>" + "<br>" +
 			"", true);
 			return "Email enviado com sucesso!";

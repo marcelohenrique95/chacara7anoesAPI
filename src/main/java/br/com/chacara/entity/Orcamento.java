@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import br.com.chacara.enums.DayEnum;
 
 @Entity
-public class Orcamento extends Reserva {
+public class Orcamento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

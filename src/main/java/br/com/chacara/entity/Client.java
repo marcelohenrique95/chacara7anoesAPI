@@ -5,24 +5,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.Table;
 
 @Entity
-@Component
+@Table(name = "clientes")
 public class Client {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(nullable = false)
+
+	@Column(name = "nome", nullable = false)
 	private String name;
-	
+
+	@Column(name = "cellphone")
 	private String cellphone;
-	
+
+	@Column(name = "email")
 	private String email;
-	
+
+	@Column(name = "cpf")
 	private String cpf;
 
 	public Long getId() {
@@ -56,7 +58,7 @@ public class Client {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getCpf() {
 		return cpf;
 	}

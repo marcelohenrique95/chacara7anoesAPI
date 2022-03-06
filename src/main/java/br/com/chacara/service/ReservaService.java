@@ -31,7 +31,7 @@ public class ReservaService {
 			throw new NegocioException("Digite um nome.");
 		}
 
-		if (reserva.getConvidados() == null || reserva.getConvidados() == 0) {
+		if (reserva.getInvited() == null || reserva.getInvited() == 0) {
 			throw new NegocioException("Informe o número de convidados.");
 		}
 

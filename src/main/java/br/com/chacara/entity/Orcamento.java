@@ -6,20 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import br.com.chacara.enums.DayEnum;
-import br.com.chacara.enums.TypeEventEnum;
 
 @Entity
-public class Orcamento {
+public class Orcamento extends Reserva {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private DayEnum dayEnum;
-
-	private TypeEventEnum typeEvent;
-
-	private Integer qtdPerson;
 
 	private boolean coupon;
 
@@ -37,28 +32,12 @@ public class Orcamento {
 		this.id = id;
 	}
 
-	public Integer getQtdPerson() {
-		return qtdPerson;
-	}
-
-	public void setQtdPerson(Integer qtdPerson) {
-		this.qtdPerson = qtdPerson;
-	}
-
 	public boolean isCoupon() {
 		return coupon;
 	}
 
 	public void setCoupon(boolean coupon) {
 		this.coupon = coupon;
-	}
-
-	public TypeEventEnum getTypeEvent() {
-		return typeEvent;
-	}
-
-	public void setTypeEvent(TypeEventEnum typeEvent) {
-		this.typeEvent = typeEvent;
 	}
 
 	public DayEnum getDayEnum() {
@@ -93,14 +72,11 @@ public class Orcamento {
 		this.valuePerDay = valuePerDay;
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((qtdPerson == null) ? 0 : qtdPerson.hashCode());
-		result = prime * result + ((typeEvent == null) ? 0 : typeEvent.hashCode());
 		return result;
 	}
 
@@ -117,11 +93,6 @@ public class Orcamento {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (qtdPerson == null) {
-			if (other.qtdPerson != null)
-				return false;
-		} else if (!qtdPerson.equals(other.qtdPerson))
 			return false;
 		return true;
 	}

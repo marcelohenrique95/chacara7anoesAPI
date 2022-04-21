@@ -21,24 +21,20 @@ public class ReservaService {
 		if (reserva == null) {
 			throw new NegocioException("ERRO");
 		}
-		Optional<Reserva> reservaExist = reservaRepository.findById(reserva.getId());
+		
+//		if(reserva.getId() != null) {	
+//			Optional<Reserva> reservaExist = reservaRepository.findById(reserva.getId());
+//			
+//			if (reservaExist != null) {
+//				throw new NegocioException("Você já reservou.");
+//			}
+//		}
 
-		if (reservaExist != null) {
-			throw new NegocioException("Você já reservou.");
-		}
-
-		if (reserva.getClient().getName() == null || reserva.getClient().getName().isEmpty()) {
-			throw new NegocioException("Digite um nome.");
-		}
-
-		if (reserva.getInvited() == null || reserva.getInvited() == 0) {
+		if (reserva.getConvidados() == null || reserva.getConvidados() == 0) {
 			throw new NegocioException("Informe o número de convidados.");
 		}
 
-		if (reserva.getClient().getCellphone() == null || reserva.getClient().getCellphone().isEmpty()) {
-			throw new NegocioException("Informe um telefone para contato.");
-		}
-		if (reserva.getTypeEvent() == null) {
+		if (reserva.getTpEvento() == null) {
 			throw new NegocioException("Informe o tipo de evento.");
 		}
 

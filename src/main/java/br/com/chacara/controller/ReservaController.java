@@ -30,7 +30,7 @@ public class ReservaController {
 		reservaService.reservar(reserva);
 	}
 
-	@GetMapping(path = "/client/listar")
+	@GetMapping(path = "/list-all")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Reserva> listClient() {
 		return reservaService.listAll();

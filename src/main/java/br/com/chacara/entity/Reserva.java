@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.chacara.enums.TypeEventEnum;
@@ -21,36 +20,26 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "tipo_evento")
-	private TypeEventEnum typeEvent;
+	@Column(name = "tp_evento")
+	private TypeEventEnum tpEvento;
 
 	@Column(name = "qtd_convidados")
-	private Integer invited;
+	private Long convidados;
 
-	@Column(name = "dt_evento")
-	private Date data;
+	@Column(name = "dt_entrada")
+	private Date dataEntrada;
 
-	@Column(name = "valor_total")
-	private double valueFinal;
+	@Column(name = "dt_saida")
+	private Date dataSaida;
 
-	@ManyToOne
-	private Client client;
+	@Column(name = "situacao")
+	private Integer situacao;
 
-	public Client getClient() {
-		return client;
-	}
+	@Column(name = "valor")
+	private Long valor;
 
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
-	public Integer getInvited() {
-		return invited;
-	}
-
-	public void setInvited(Integer invited) {
-		this.invited = invited;
-	}
+	@Column(name = "cpf_cliente")
+	private Long cpfCliente;
 
 	public Long getId() {
 		return id;
@@ -60,50 +49,80 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public TypeEventEnum getTypeEvent() {
-		return typeEvent;
+	public TypeEventEnum getTpEvento() {
+		return tpEvento;
 	}
 
-	public void setTypeEvent(TypeEventEnum typeEvent) {
-		this.typeEvent = typeEvent;
+	public void setTpEvento(TypeEventEnum tpEvento) {
+		this.tpEvento = tpEvento;
 	}
 
-	public Date getData() {
-		return data;
+	public Long getConvidados() {
+		return convidados;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setConvidados(Long convidados) {
+		this.convidados = convidados;
 	}
 
-	public double getValueFinal() {
-		return valueFinal;
+	public Date getDataEntrada() {
+		return dataEntrada;
 	}
 
-	public void setValueFinal(double valueFinal) {
-		this.valueFinal = valueFinal;
+	public void setDataEntrada(Date dataEntrada) {
+		this.dataEntrada = dataEntrada;
+	}
+
+	public Date getDataSaida() {
+		return dataSaida;
+	}
+
+	public void setDataSaida(Date dataSaida) {
+		this.dataSaida = dataSaida;
+	}
+
+	public Integer getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(Integer situacao) {
+		this.situacao = situacao;
+	}
+
+	public Long getValor() {
+		return valor;
+	}
+
+	public void setValor(Long valor) {
+		this.valor = valor;
+	}
+
+	public Long getCpfCliente() {
+		return cpfCliente;
+	}
+
+	public void setCpfCliente(Long cpfCliente) {
+		this.cpfCliente = cpfCliente;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(client, data, id, invited, typeEvent, valueFinal);
-		return result;
+		return Objects.hash(convidados, dataEntrada, dataSaida, id, cpfCliente, situacao, tpEvento, valor);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Reserva other = (Reserva) obj;
-		return Objects.equals(client, other.client) && Objects.equals(data, other.data) && Objects.equals(id, other.id)
-				&& Objects.equals(invited, other.invited) && typeEvent == other.typeEvent
-				&& Double.doubleToLongBits(valueFinal) == Double.doubleToLongBits(other.valueFinal);
+		return Objects.equals(convidados, other.convidados) && Objects.equals(dataEntrada, other.dataEntrada)
+				&& Objects.equals(dataSaida, other.dataSaida) && Objects.equals(id, other.id)
+				&& Objects.equals(cpfCliente, other.cpfCliente) && Objects.equals(situacao, other.situacao)
+				&& tpEvento == other.tpEvento && Objects.equals(valor, other.valor);
 	}
 
 }

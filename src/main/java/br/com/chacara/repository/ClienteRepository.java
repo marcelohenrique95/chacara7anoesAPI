@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.chacara.entity.Client;
+import br.com.chacara.entity.Cliente;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
-	Client findByEmail (String email);
+	Cliente findByEmail (String email);
 	
-	List<Client> findByName (String name);
+	List<Cliente> findByNome (String nome);
 
 }

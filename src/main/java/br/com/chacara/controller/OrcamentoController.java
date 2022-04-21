@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.chacara.enums.TypeEventEnum;
 import br.com.chacara.service.OrcamentoService;
 
 @CrossOrigin
@@ -21,8 +22,8 @@ public class OrcamentoController {
 
 	@GetMapping(path = "/orcamento/{diaId}/{eventoId}/{conv}/{coupon}")
 	@ResponseStatus(HttpStatus.OK)
-	public String getOrcamento(@PathVariable("diaId") Integer diaId, @PathVariable("eventoId") Integer eventoId,
+	public String getOrcamento(@PathVariable("diaId") Integer diaId, @PathVariable("eventoId") TypeEventEnum evento,
 			@PathVariable("conv") Integer conv, @PathVariable("coupon") boolean coupon) {
-		return orcamentoService.getOrcamento(diaId, eventoId, conv, coupon);
+		return orcamentoService.getOrcamento(diaId, evento, conv, coupon);
 	}
 }

@@ -8,7 +8,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.chacara.entity.Client;
+import br.com.chacara.entity.Cliente;
 import br.com.chacara.entity.Reserva;
 
 @CrossOrigin
@@ -18,7 +18,7 @@ public class SendEmailController {
 	@Autowired
 	private JavaMailSender sendMail;
 
-	public String sendMailWelcome(Client client) {
+	public String sendMailWelcome(Cliente client) {
 		try {
 			MimeMessage mail = sendMail.createMimeMessage();
 
@@ -26,10 +26,10 @@ public class SendEmailController {
 			MimeMessageHelper helper = new MimeMessageHelper(mail);
 			helper.setTo(client.getEmail());
 			helper.setSubject(
-					"Seja bem vindo " + client.getName().substring(0, client.getName().indexOf(" ")).concat(" !"));
+					"Seja bem vindo " + client.getNome().substring(0, client.getNome().indexOf(" ")).concat(" !"));
 			helper.setText("<h1 style='color: #74d455'>Chacára 7 Anões - Espaço de Eventos</h1>" + "<br>"
 					+ "<p>Olá <strong style='color: #db8437'>"
-					+ client.getName().substring(0, client.getName().indexOf(" ")).concat(" !")
+					+ client.getNome().substring(0, client.getNome().indexOf(" ")).concat(" !")
 					+ "</strong> Sua conta foi criada com SUCESSO !</p>" + "<br><br>" + "<hr/>"
 					+ "<p>Jardim Universitário, Cuiabá-MT | (65) 98123-4218 </p>"
 					+ "<a href='https://www.instagram.com/chacara7anoes/'>Nos siga no Instagram</a>", true);
@@ -51,8 +51,8 @@ public class SendEmailController {
 
 			System.out.println("entrou no metodo send");
 			MimeMessageHelper helper = new MimeMessageHelper(mail);
-			helper.setTo(reserva.getClient().getEmail());
-			helper.setSubject("Olá " + reserva.getClient().getName().substring(0, reserva.getClient().getName().indexOf(" ")).concat(" !"));
+//			helper.setTo(reserva.getPessoa().getEmail());
+//			helper.setSubject("Olá " + reserva.getPessoa().getNome().substring(0, reserva.getPessoa().getNome().indexOf(" ")).concat(" !"));
 			helper.setText("<h1 style='color: #74d455'>Chacára 7 Anões - Espaço de Eventos</h1>" + "<br>" +
 			"", true);
 			return "Email enviado com sucesso!";

@@ -13,33 +13,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.chacara.entity.Client;
-import br.com.chacara.service.ClientService;
+import br.com.chacara.entity.Cliente;
+import br.com.chacara.service.ClienteService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1")
-public class ClientController {
+@RequestMapping("/v1/cliente")
+public class ClienteController {
 
 	@Autowired
-	private ClientService clientService;
+	private ClienteService clienteService;
 
-	@PostMapping(path = "/client")
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void regClient(@RequestBody Client client) {
-		clientService.registerClient(client);
+	public void regClient(@RequestBody Cliente client) {
+		clienteService.registerClient(client);
 	}
 
-	@GetMapping(path = "/client/listar")
+	@GetMapping(path = "/list-all")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Client> listClient() {
-		return clientService.listAll();
+	public List<Cliente> listClient() {
+		return clienteService.listAll();
 	}
 
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.OK)
-	public void removeClient(@RequestBody Client client) {
-		clientService.removeClient(client);
+	public void removeClient(@RequestBody Cliente client) {
+		clienteService.removeClient(client);
 	}
 
 }

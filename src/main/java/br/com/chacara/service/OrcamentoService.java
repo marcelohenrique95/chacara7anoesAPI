@@ -24,15 +24,15 @@ public class OrcamentoService {
 
 	private static Double VALOR_BIG_FERIADOS = 2500.0;
 
-	public String getOrcamento(Integer diaId, Integer eventId, Integer conv, boolean coupon) {
+	public String getOrcamento(Integer diaId, TypeEventEnum evento, Integer conv, boolean coupon) {
 		Orcamento orcamento = new Orcamento();
 
-		if (diaId == null || eventId == null || conv == null) {
+		if (diaId == null || evento == null || conv == null) {
 			throw new NegocioException("Preencha todos os campos.");
 		}
 
 		orcamento.setValuePerDay(verifyDay(diaId));
-		orcamento.setValuePerTypeEvent(verifyTypeEvent(eventId));
+		orcamento.setValuePerTypeEvent(verifyTypeEvent(evento));
 		orcamento.setValuePerPerson(verifyQtdPerson(conv));
 
 		totalValueEvent = calculateTotalValue(orcamento);
@@ -44,13 +44,13 @@ public class OrcamentoService {
 		return totalValueEvent.toString();
 	}
 
-	public Double verifyTypeEvent(Integer eventId) {
+	public Double verifyTypeEvent(TypeEventEnum evento) {
 
-		if (eventId == TypeEventEnum.Aniversario.getEventId() || eventId == TypeEventEnum.ChaDeBebe.getEventId()) {
+		if (evento.equals(TypeEventEnum.ANIVERSARIO) || evento.equals(TypeEventEnum.CHADEBEBE)) {
 			return 200.0;
 		}
 
-		if (eventId == TypeEventEnum.Casamento.getEventId() || eventId == TypeEventEnum.Retiro.getEventId()) {
+		if (evento.equals(TypeEventEnum.CASAMENTO) || evento.equals(TypeEventEnum.RETIRO)) {
 			return 300.0;
 		}
 		return 100.0;

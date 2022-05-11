@@ -41,6 +41,9 @@ public class Reserva {
 	@Column(name = "cpf_cliente")
 	private Long cpfCliente;
 
+	@Column(name = "id_pessoa")
+	private Long idPessoa;
+
 	public Long getId() {
 		return id;
 	}
@@ -105,9 +108,17 @@ public class Reserva {
 		this.cpfCliente = cpfCliente;
 	}
 
+	public Long getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(convidados, dataEntrada, dataSaida, id, cpfCliente, situacao, tpEvento, valor);
+		return Objects.hash(convidados, cpfCliente, dataEntrada, dataSaida, id, idPessoa, situacao, tpEvento, valor);
 	}
 
 	@Override
@@ -119,10 +130,11 @@ public class Reserva {
 		if (getClass() != obj.getClass())
 			return false;
 		Reserva other = (Reserva) obj;
-		return Objects.equals(convidados, other.convidados) && Objects.equals(dataEntrada, other.dataEntrada)
-				&& Objects.equals(dataSaida, other.dataSaida) && Objects.equals(id, other.id)
-				&& Objects.equals(cpfCliente, other.cpfCliente) && Objects.equals(situacao, other.situacao)
-				&& tpEvento == other.tpEvento && Objects.equals(valor, other.valor);
+		return Objects.equals(convidados, other.convidados) && Objects.equals(cpfCliente, other.cpfCliente)
+				&& Objects.equals(dataEntrada, other.dataEntrada) && Objects.equals(dataSaida, other.dataSaida)
+				&& Objects.equals(id, other.id) && Objects.equals(idPessoa, other.idPessoa)
+				&& Objects.equals(situacao, other.situacao) && tpEvento == other.tpEvento
+				&& Objects.equals(valor, other.valor);
 	}
 
 }

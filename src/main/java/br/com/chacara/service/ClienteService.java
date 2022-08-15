@@ -20,7 +20,7 @@ public class ClienteService {
 	@Autowired
 	private SendEmailController sendEmail;
 
-	public void registerClient(Cliente client) {
+	public void registerCliente(Cliente client) {
 
 		if (client.getEmail() == null || client.getEmail().isEmpty()) {
 			throw new NegocioException("Por favor, digite um email.");
@@ -37,6 +37,13 @@ public class ClienteService {
 		sendEmail.sendMailWelcome(client);
 		clienteRepository.save(client);
 
+	}
+	
+	public void updateCliente(Long id, Cliente cliente) {
+		Optional<Cliente> clienteUpdate = clienteRepository.findById(id);
+		if(clienteUpdate != null) {
+			
+		}
 	}
 
 	public List<Cliente> listAll() {

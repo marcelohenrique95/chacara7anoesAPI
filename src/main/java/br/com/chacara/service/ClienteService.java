@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.chacara.controller.SendEmailController;
@@ -16,33 +18,49 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+
 	@Autowired
 	private SendEmailController sendEmail;
 
-	public void registerCliente(Cliente client) {
+	private static String CLIENTE_EMAIL_ERROR = "Usuário deve ter um email, por favor digite um email válido.";
+	private static String CLIENTE_TELEFONE_ERROR = "O campo telefone não pode ser vázio, digite um número de contato válido.";
+	private static String CLIENTE_NOME_ERROR = "O campo nome não pode ser vázio, digite seu nome completo.";
 
-		if (client.getEmail() == null || client.getEmail().isEmpty()) {
-			throw new NegocioException("Por favor, digite um email.");
-		}
+	public ResponseEntity<Cliente> createCliente(Cliente cliente) throws NegocioException {
 
-		if (client.getTelefone() == null || client.getTelefone().isEmpty()) {
-			throw new NegocioException("O campo celular não pode ser vázio, digite um número para contato.");
-		}
+		try {
 
-		if (client.getNome() == null || client.getNome().isEmpty()) {
-			throw new NegocioException("O campo nome não pode ser vazio, digite seu nome.");
+			if (cliente.getEmail() == null || cliente.getEmail().isEmpty()) {
+				throw new NegocioException(CLIENTE_EMAIL_ERROR);
+			}
+
+			if (cliente.getTelefone() == null || cliente.getTelefone().isEmpty()) {
+				throw new NegocioException(CLIENTE_TELEFONE_ERROR);
+			}
+
+			if (cliente.getNome() == null || cliente.getNome().isEmpty()) {
+				throw new NegocioException(CLIENTE_NOME_ERROR);
+			}
+
+			sendEmail.sendMailWelcome(cliente);
+
+			return ResponseEntity.ok(clienteRepository.save(cliente));
+		} catch (NegocioException ex) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
-		
-		sendEmail.sendMailWelcome(client);
-		clienteRepository.save(client);
 
 	}
-	
+
 	public void updateCliente(Long id, Cliente cliente) {
-		Optional<Cliente> clienteUpdate = clienteRepository.findById(id);
-		if(clienteUpdate != null) {
-			
+		Optional<Cliente> clienteDb = clienteRepository.findById(id);
+		Cliente clienteUpdate = clienteDb.get();
+		if (clienteUpdate != null) {
+			clienteUpdate.setCpf(cliente.getCpf());
+			clienteUpdate.setEndereco(cliente.getEndereco());
+			clienteUpdate.setTelefone(cliente.getTelefone());
+			clienteUpdate.setEmail(cliente.getEmail());
+
+			clienteRepository.save(clienteUpdate);
 		}
 	}
 
@@ -50,10 +68,10 @@ public class ClienteService {
 		return clienteRepository.findAll();
 	}
 
-	public void removeClient(Cliente client) {
-		Optional<Cliente> clientExist = clienteRepository.findById(client.getId());
+	public void removeClient(Cliente cliente) {
+		Optional<Cliente> clientExist = clienteRepository.findById(cliente.getId());
 		if (clientExist != null) {
-			clienteRepository.deleteById(client.getId());
+			clienteRepository.deleteById(cliente.getId());
 		}
 	}
 

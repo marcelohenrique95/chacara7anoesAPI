@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,8 @@ public class ClienteController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void regClient(@RequestBody Cliente client) {
-		clienteService.registerClient(client);
+	public ResponseEntity<Cliente> regClient(@RequestBody Cliente cliente) {
+		return clienteService.createCliente(cliente);
 	}
 
 	@GetMapping(path = "/list-all")
@@ -38,8 +39,8 @@ public class ClienteController {
 
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.OK)
-	public void removeClient(@RequestBody Cliente client) {
-		clienteService.removeClient(client);
+	public void removeClient(@RequestBody Cliente cliente) {
+		clienteService.removeClient(cliente);
 	}
 
 }

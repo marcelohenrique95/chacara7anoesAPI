@@ -14,7 +14,7 @@ import br.com.chacara.service.OrcamentoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/v1/orcamento")
 public class OrcamentoController {
 
 	@Autowired

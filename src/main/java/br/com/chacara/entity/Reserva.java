@@ -3,12 +3,7 @@ package br.com.chacara.entity;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import br.com.chacara.enums.TypeEventEnum;
 
@@ -17,7 +12,7 @@ import br.com.chacara.enums.TypeEventEnum;
 public class Reserva {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(name = "tp_evento")
@@ -38,11 +33,9 @@ public class Reserva {
 	@Column(name = "valor")
 	private Long valor;
 
-	@Column(name = "cpf_cliente")
-	private Long cpfCliente;
-
-	@Column(name = "id_pessoa")
-	private Long idPessoa;
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
 	public Long getId() {
 		return id;
@@ -100,41 +93,12 @@ public class Reserva {
 		this.valor = valor;
 	}
 
-	public Long getCpfCliente() {
-		return cpfCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setCpfCliente(Long cpfCliente) {
-		this.cpfCliente = cpfCliente;
-	}
-
-	public Long getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(convidados, cpfCliente, dataEntrada, dataSaida, id, idPessoa, situacao, tpEvento, valor);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Reserva other = (Reserva) obj;
-		return Objects.equals(convidados, other.convidados) && Objects.equals(cpfCliente, other.cpfCliente)
-				&& Objects.equals(dataEntrada, other.dataEntrada) && Objects.equals(dataSaida, other.dataSaida)
-				&& Objects.equals(id, other.id) && Objects.equals(idPessoa, other.idPessoa)
-				&& Objects.equals(situacao, other.situacao) && tpEvento == other.tpEvento
-				&& Objects.equals(valor, other.valor);
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

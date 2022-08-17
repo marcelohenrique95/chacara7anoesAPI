@@ -1,13 +1,9 @@
 package br.com.chacara.entity;
 
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "cliente")
@@ -15,6 +11,7 @@ public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column( name = "cliente_id")
 	private Long id;
 
 	@Column(name = "nome", length = 100 , nullable = false)
@@ -29,8 +26,12 @@ public class Cliente {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "endereco")
-	private String endereco;
+	@OneToOne
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
+
+	@OneToMany( mappedBy = "cliente")
+	private List<Reserva> reserva;
 
 	public Long getId() {
 		return id;
@@ -72,12 +73,20 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Reserva> getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(List<Reserva> reserva) {
+		this.reserva = reserva;
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class ClienteService {
 			clienteUpdate.setCpf(cliente.getCpf());
 			clienteUpdate.setEndereco(cliente.getEndereco());
 			clienteUpdate.setTelefone(cliente.getTelefone());
-			clienteUpdate.setEmail(cliente.getEmail());
+			clienteUpdate.getEndereco().setBairro(cliente.getEndereco().getBairro());
 
 			clienteRepository.save(clienteUpdate);
 		}

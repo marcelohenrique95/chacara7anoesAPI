@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+import br.com.chacara.enums.SimNaoEnum;
 import br.com.chacara.enums.TypeEventEnum;
 
 @Entity
@@ -32,6 +33,10 @@ public class Reserva {
 
 	@Column(name = "valor")
 	private Long valor;
+
+	@Column(name = "som_automotivo")
+	@Enumerated(EnumType.STRING)
+	private SimNaoEnum somAutomotivo;
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
@@ -91,6 +96,14 @@ public class Reserva {
 
 	public void setValor(Long valor) {
 		this.valor = valor;
+	}
+
+	public SimNaoEnum getSomAutomotivo() {
+		return somAutomotivo;
+	}
+
+	public void setSomAutomotivo(SimNaoEnum somAutomotivo) {
+		this.somAutomotivo = somAutomotivo;
 	}
 
 	public Cliente getCliente() {

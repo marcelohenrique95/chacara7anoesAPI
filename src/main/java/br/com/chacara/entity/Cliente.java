@@ -27,7 +27,7 @@ public class Cliente {
 	private String email;
 
 	@OneToOne
-	@JoinColumn(name = "endereco_id")
+	@JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
 	private Endereco endereco;
 
 	@OneToMany( mappedBy = "cliente")

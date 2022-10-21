@@ -1,5 +1,6 @@
 package br.com.chacara.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -7,10 +8,18 @@ import javax.persistence.*;
 
 import br.com.chacara.enums.SimNaoEnum;
 import br.com.chacara.enums.TypeEventEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
 @Table(name = "reserva")
-public class Reserva {
+public class Reserva implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,77 +50,5 @@ public class Reserva {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public TypeEventEnum getTpEvento() {
-		return tpEvento;
-	}
-
-	public void setTpEvento(TypeEventEnum tpEvento) {
-		this.tpEvento = tpEvento;
-	}
-
-	public Long getConvidados() {
-		return convidados;
-	}
-
-	public void setConvidados(Long convidados) {
-		this.convidados = convidados;
-	}
-
-	public Date getDataEntrada() {
-		return dataEntrada;
-	}
-
-	public void setDataEntrada(Date dataEntrada) {
-		this.dataEntrada = dataEntrada;
-	}
-
-	public Date getDataSaida() {
-		return dataSaida;
-	}
-
-	public void setDataSaida(Date dataSaida) {
-		this.dataSaida = dataSaida;
-	}
-
-	public Integer getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(Integer situacao) {
-		this.situacao = situacao;
-	}
-
-	public Long getValor() {
-		return valor;
-	}
-
-	public void setValor(Long valor) {
-		this.valor = valor;
-	}
-
-	public SimNaoEnum getSomAutomotivo() {
-		return somAutomotivo;
-	}
-
-	public void setSomAutomotivo(SimNaoEnum somAutomotivo) {
-		this.somAutomotivo = somAutomotivo;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 
 }

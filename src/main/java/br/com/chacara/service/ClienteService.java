@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -80,7 +81,11 @@ public class ClienteService {
         Optional<Cliente> clienteDB = clienteRepository.findById(id);
         return Optional.ofNullable(clienteDB.orElseThrow(() -> new NegocioException(CLIENTE_NAO_ENCONTRADO)));
     }
-
+    public List<Cliente> listClienteFilter(Cliente cliente) {
+        // Filtrando cliente na query de acordo com os parametros preenchidos
+        Example<Cliente> clienteExample = Example.of(cliente);
+        return clienteRepository.findAll(clienteExample);
+    }
     public void removeClient(Cliente cliente) {
         Optional<Cliente> clientExist = clienteRepository.findById(cliente.getId());
         if (clientExist != null) {

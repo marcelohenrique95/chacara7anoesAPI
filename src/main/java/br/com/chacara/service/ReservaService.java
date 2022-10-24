@@ -3,9 +3,9 @@ package br.com.chacara.service;
 import java.util.List;
 import java.util.Optional;
 
-import br.com.chacara.repository.specification.ReservaSpecification;
+import static br.com.chacara.repository.specification.ReservaSpecification.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import br.com.chacara.entity.Reserva;
@@ -15,15 +15,15 @@ import br.com.chacara.repository.ReservaRepository;
 @Service
 public class ReservaService {
 
-	@Autowired
-	private ReservaRepository reservaRepository;
+    @Autowired
+    private ReservaRepository repository;
 
-	public void reservar(Reserva reserva) {
+    public void reservar(Reserva reserva) {
 
-		if (reserva == null) {
-			throw new NegocioException("ERRO");
-		}
-		
+        if (reserva == null) {
+            throw new NegocioException("ERRO");
+        }
+
 //		if(reserva.getId() != null) {	
 //			Optional<Reserva> reservaExist = reservaRepository.findById(reserva.getId());
 //			
@@ -32,31 +32,30 @@ public class ReservaService {
 //			}
 //		}
 
-		if (reserva.getConvidados() == null || reserva.getConvidados() == 0) {
-			throw new NegocioException("Informe o número de convidados.");
-		}
+        if (reserva.getConvidados() == null || reserva.getConvidados() == 0) {
+            throw new NegocioException("Informe o número de convidados.");
+        }
 
-		if (reserva.getTpEvento() == null) {
-			throw new NegocioException("Informe o tipo de evento.");
-		}
+        if (reserva.getTpEvento() == null) {
+            throw new NegocioException("Informe o tipo de evento.");
+        }
 
-		reservaRepository.save(reserva);
-	}
+        repository.save(reserva);
+    }
 
-	public List<Reserva> listAll() {
-		return reservaRepository.findAll();
-	}
+    public List<Reserva> listAll() {
+        return repository.findAll();
+    }
 
-	public List<Reserva> listAllGreatherThanValor(Long valor) {
-		Specification<Reserva> greatherThanValorSpec = ReservaSpecification.greatherThanValor(valor);
-		return reservaRepository.findAll(greatherThanValorSpec);
-	}
+    public List<Reserva> listAllGreatherThanValor(Long valor) {
+        return repository.findAll(greatherThanValor(valor));
+    }
 
-	public void removeReserva(Reserva reserva) {
-		Optional<Reserva> reservaExist = reservaRepository.findById(reserva.getId());
-		if (reservaExist != null) {
-			reservaRepository.deleteById(reserva.getId());
-		}
-	}
+    public void removeReserva(Reserva reserva) {
+        Optional<Reserva> reservaExist = repository.findById(reserva.getId());
+        if (reservaExist != null) {
+            repository.deleteById(reserva.getId());
+        }
+    }
 
 }

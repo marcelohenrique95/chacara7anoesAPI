@@ -18,7 +18,7 @@ import br.com.chacara.repository.ClienteRepository;
 public class ClienteService {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteRepository repository;
 
     @Autowired
     private SendEmailController sendEmail;
@@ -33,7 +33,7 @@ public class ClienteService {
 
         try {
 
-            Optional<Cliente> clienteExists = clienteRepository.findByEmail(cliente.getEmail());
+            Optional<Cliente> clienteExists = repository.findByEmail(cliente.getEmail());
 
             if (clienteExists.isPresent()) {
                 throw new NegocioException(CLIENTE_CADASTRADO_ERROR);
@@ -53,7 +53,7 @@ public class ClienteService {
 
             sendEmail.sendMailWelcome(cliente);
 
-            return ResponseEntity.ok(clienteRepository.save(cliente));
+            return ResponseEntity.ok(repository.save(cliente));
         } catch (NegocioException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -61,7 +61,7 @@ public class ClienteService {
     }
 
     public void updateCliente(Long id, Cliente cliente) {
-        Optional<Cliente> clienteDb = clienteRepository.findById(id);
+        Optional<Cliente> clienteDb = repository.findById(id);
         Cliente clienteUpdate = clienteDb.get();
         if (clienteUpdate != null) {
             clienteUpdate.setCpf(cliente.getCpf());
@@ -69,27 +69,27 @@ public class ClienteService {
             clienteUpdate.setTelefone(cliente.getTelefone());
             clienteUpdate.getEndereco().setBairro(cliente.getEndereco().getBairro());
 
-            clienteRepository.save(clienteUpdate);
+            repository.save(clienteUpdate);
         }
     }
 
     public List<Cliente> listAll() {
-        return clienteRepository.findAll();
+        return repository.findAll();
     }
 
     public Optional<Cliente> findClienteById(Long id) {
-        Optional<Cliente> clienteDB = clienteRepository.findById(id);
+        Optional<Cliente> clienteDB = repository.findById(id);
         return Optional.ofNullable(clienteDB.orElseThrow(() -> new NegocioException(CLIENTE_NAO_ENCONTRADO)));
     }
     public List<Cliente> listClienteFilter(Cliente cliente) {
         // Filtrando cliente na query de acordo com os parametros preenchidos
         Example<Cliente> clienteExample = Example.of(cliente);
-        return clienteRepository.findAll(clienteExample);
+        return repository.findAll(clienteExample);
     }
     public void removeClient(Cliente cliente) {
-        Optional<Cliente> clientExist = clienteRepository.findById(cliente.getId());
+        Optional<Cliente> clientExist = repository.findById(cliente.getId());
         if (clientExist != null) {
-            clienteRepository.deleteById(cliente.getId());
+            repository.deleteById(cliente.getId());
         }
     }
 

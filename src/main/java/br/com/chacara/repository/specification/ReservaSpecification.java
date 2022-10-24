@@ -9,6 +9,10 @@ public class ReservaSpecification {
         return (reserva, cq, cb) -> cb.greaterThan(reserva.get("convidados"), convidados);
     }
 
+    public static Specification<Reserva> lessThanConvidados(Long convidados) {
+        return (reserva, cq, cb) -> cb.lessThan(reserva.get("convidados"), convidados);
+    }
+
     public static Specification<Reserva> greatherThanValor(Long valor) {
         return (reserva, cq, cb) -> cb.greaterThan(reserva.get("valor"), valor);
     }

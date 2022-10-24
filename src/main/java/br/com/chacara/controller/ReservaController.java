@@ -21,24 +21,24 @@ import br.com.chacara.service.ReservaService;
 public class ReservaController {
 
 	@Autowired
-	private ReservaService reservaService;
+	private ReservaService service;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@CrossOrigin
 	public void reserva(@RequestBody Reserva reserva) {
-		reservaService.reservar(reserva);
+		service.reservar(reserva);
 	}
 
 	@GetMapping(path = "/list-all")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Reserva> listClient() {
-		return reservaService.listAll();
+		return service.listAll();
 	}
 
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.OK)
 	public void removeClient(@RequestBody Reserva reserva) {
-		reservaService.removeReserva(reserva);
+		service.removeReserva(reserva);
 	}
 }

@@ -3,7 +3,9 @@ package br.com.chacara.service;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.chacara.repository.specification.ReservaSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import br.com.chacara.entity.Reserva;
@@ -43,6 +45,11 @@ public class ReservaService {
 
 	public List<Reserva> listAll() {
 		return reservaRepository.findAll();
+	}
+
+	public List<Reserva> listAllGreatherThanValor(Long valor) {
+		Specification<Reserva> greatherThanValorSpec = ReservaSpecification.greatherThanValor(valor);
+		return reservaRepository.findAll(greatherThanValorSpec);
 	}
 
 	public void removeReserva(Reserva reserva) {
